@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <title>Result</title>
+    <style>
+       body {
+    background: url("D:\ML\static\images\hospital_bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    color: #fff;
+}
+        .result-box {
+            max-width: 600px;
+            margin: 100px auto;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            padding: 40px;
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        h1, h3, h4, p {
+            margin-bottom: 20px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* 💡 Add this here 👇 */
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #0078D7;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+    
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <title>Diagnosis Result</title>
+
+    <style>
+        
+        body {
+            margin: 0;
+            font-family: 'Ubuntu', sans-serif;
+            background: url("/static/images/hospital_bg.jpg") no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            margin: 5% auto;
+            padding: 30px;
+            width: 60%;
+            border-radius: 15px;
+            box-shadow: 0 0 15px #0ef;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .quote {
+            font-style: italic;
+            color: #ffeb3b;
+            margin-top: 20px;
+        }
+        .suggestions {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .suggestions h3 {
+            color: #0ef;
+        }
+        ul {
+            list-style-type: square;
+            margin-left: 20px;
+        }
+        .doctor-info {
+            margin-top: 30px;
+            background: #0ef;
+            padding: 15px;
+            border-radius: 10px;
+            color: black;
+        }
+        .btn {
+            background-color: #0ef;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ result }}</h1>
+        {% if suggestions %}
+            <div class="suggestions">
+                <h3>✅ Recommended:</h3>
+                <ul>
+                    {% for item in suggestions.do %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                <h3>🚫 Avoid:</h3>
+                <ul>
+                    {% for item in suggestions.dont %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p>Stay healthy! Keep doing regular checkups 🧘</p>
+        {% endif %}
+
+        {% if doctor %}
+            <div class="doctor-info">
+                <strong>Recommended Doctor:</strong><br>
+                Dr. {{ doctor.name }}<br>
+                {{ doctor.hospital }} – {{ doctor.location }}
+            </div>
+        {% endif %}
+
+        <div class="quote">
+            💡 "{{ quote }}"
+        </div>
+    </div>
+    <div class="container">
+    <h1>{{ result }}</h1>
+    {% if suggestions %}
+    <h3>📝 Suggestions</h3>
+    <ul>
+        <li><b>Do:</b> {{ suggestions.do | join(', ') }}</li>
+        <li><b>Don't:</b> {{ suggestions.dont | join(', ') }}</li>
+    </ul>
+    <h4>👨‍⚕️ Doctor Suggestion:</h4>
+    <p>{{ doctor.name }}, {{ doctor.hospital }}</p>
+    {% endif %}
+</div>
+<!-- Example snippet inside result.html -->
+<div class="result-box">
+    <h1>{{ result }}</h1>
+    {% if suggestions %}
+        <h3>📝 Suggestions</h3>
+        <ul>
+            <li><b>Do:</b> {{ suggestions.do | join(', ') }}</li>
+            <li><b>Don't:</b> {{ suggestions.dont | join(', ') }}</li>
+        </ul>
+
+        <h4>👨‍⚕️ Recommended Doctor</h4>
+        <p>{{ doctor.name }}, {{ doctor.hospital }}</p>
+    {% endif %}
+
+    <!-- 💾 Add the PDF Download Form here -->
+    <form action="/download_report" method="post">
+        <input type="hidden" name="result" value="{{ result }}">
+        {% if doctor %}
+            <input type="hidden" name="doctor" value="{{ doctor.name }} - {{ doctor.hospital }}">
+        {% endif %}
+        <button type="submit" style="margin-top:20px; padding:10px 20px; background:#4CAF50; color:white; border:none; border-radius:5px;">
+            📄 Download Report
+        </button>
+    </form>
+
+    <a href="/" class="back-button">⬅ Go Back</a>
+</div>
+
+
+</body>
+</html>

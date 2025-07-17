@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+    body { font-family: 'Quicksand', sans-serif; }
+</style>
+    <title>Brain Tumor Detection</title>
+    <style>
+        body {
+            background-image: url("/static/bg.jpg");
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+            padding-top: 50px;
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 50%;
+            margin: auto;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px #fff;
+        }
+        h1 {
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            background-color: #00c3ff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<!-- Emergency Contact -->
+<button onclick="alert('Emergency Call: +91-9876543210')">🚑 Emergency</button>
+
+<style>
+    .dark-mode {
+        background-color: #121212;
+        color: #fff;
+    }
+
+    #preview {
+        border: 2px solid #ccc;
+        padding: 5px;
+        border-radius: 8px;
+    }
+</style>
+
+    <div class="container">
+        <img src="/static/logo.png" class="logo" alt="Logo">
+        <h1>Brain Tumor Detection</h1>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" required>
+            <br>
+            <input type="submit" value="Detect Tumor">
+        </form>
+        <p style="font-size: 18px; font-style: italic; color: #ffecb3; margin-top: 40px;">
+    "{{ quote }}"
+</p>
+
+    </div>
+</body>
+</html>
